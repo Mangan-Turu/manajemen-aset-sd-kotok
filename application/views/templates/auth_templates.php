@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-image: url('<?= base_url('assets/images'); ?>/background-auth.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
     <?= $contents ?>
 
