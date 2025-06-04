@@ -36,6 +36,8 @@ class Register extends CI_Controller
 	public function submit()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('no_hp', 'Nomor Handphone', 'required|trim|regex_match[/^[0-9]+$/]');
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[users.username]');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[6]');
 		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|trim|matches[password]');
@@ -49,6 +51,8 @@ class Register extends CI_Controller
 			$data = [
 				'nama'       => $this->input->post('name', true),
 				'email'      => $this->input->post('email', true),
+				'no_hp'      => $this->input->post('no_hp', true),
+				'username'   => $this->input->post('username', true),
 				'password'   => password_hash($this->input->post('password'), PASSWORD_DEFAULT), // hash password
 				'role'       => 'user',
 				'created_at' => date('Y-m-d H:i:s')
