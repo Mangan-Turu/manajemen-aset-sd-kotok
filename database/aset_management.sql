@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `t_aset_pemeliharaan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `aset_id` int NOT NULL,
   `tanggal_pemeliharaan` date NOT NULL,
+  `jumlah` int DEFAULT '1',
   `jenis_pemeliharaan` varchar(100) NOT NULL,
   `deskripsi` text,
   `biaya` decimal(12,2) DEFAULT NULL,
@@ -189,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `t_aset_pemeliharaan` (
 CREATE TABLE IF NOT EXISTS `t_aset_kerusakan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `aset_id` int NOT NULL,
+  `jumlah` int DEFAULT '1',
   `tanggal_kerusakan` date NOT NULL,
   `jenis_kerusakan` varchar(100) NOT NULL,
   `deskripsi` text,
