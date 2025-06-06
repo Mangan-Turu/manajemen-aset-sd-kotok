@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<?php $this->load->view('modal_tambah_mutasi'); ?>
+<?php $this->load->view('components/modal/modal_tambah_mutasi'); ?>
 
 <script>
 $(function() {
