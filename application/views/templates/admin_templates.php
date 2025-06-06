@@ -173,65 +173,50 @@
             </a>
 
             <!-- Sidebar -->
+            <?php
+            $current = $this->uri->segment(1);
+            $navigation = $this->config->item('navigation');
+            ?>
+
             <div class="sidebar">
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Widgets
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a href="<?= base_url('logout'); ?>" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
+                        <?php foreach ($navigation as $item): ?>
+                            <?php
+                            $isActive = in_array($current, $item['active']);
+                            $hasChildren = isset($item['children']);
+                            ?>
+                            <li class="nav-item <?= $hasChildren && $isActive ? 'menu-open' : '' ?>">
+                                <a href="<?= $hasChildren ? '#' : base_url($item['url']) ?>" class="nav-link <?= $isActive ? 'active' : '' ?>">
+                                    <i class="nav-icon <?= $item['icon'] ?>"></i>
+                                    <p>
+                                        <?= $item['label'] ?>
+                                        <?= $hasChildren ? '<i class="right fas fa-angle-left"></i>' : '' ?>
+                                    </p>
+                                </a>
+
+                                <?php if ($hasChildren): ?>
+                                    <ul class="nav nav-treeview">
+                                        <?php foreach ($item['children'] as $child): ?>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url($child['url']) ?>" class="nav-link <?= in_array($current, $child['active']) ? 'active' : '' ?>">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p><?= $child['label'] ?></p>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
+
             <!-- /.sidebar -->
         </aside>
+        <!-- End Main Sidebar Container -->
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
