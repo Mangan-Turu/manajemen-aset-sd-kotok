@@ -49,13 +49,13 @@ class Register extends CI_Controller
 			$this->load->view('templates/auth_templates', $data);
 		} else {
 			$data = [
-				'nama'       => $this->input->post('name', true),
-				'email'      => $this->input->post('email', true),
-				'no_hp'      => $this->input->post('no_hp', true),
-				'username'   => $this->input->post('username', true),
-				'password'   => password_hash($this->input->post('password'), PASSWORD_DEFAULT), // hash password
-				'role'       => 'user',
-				'created_at' => date('Y-m-d H:i:s')
+				'nama_lengkap'	=> $this->input->post('name', true),
+				'email'      	=> $this->input->post('email', true),
+				'no_hp'      	=> $this->input->post('no_hp', true),
+				'username'   	=> $this->input->post('username', true),
+				'password'   	=> password_hash($this->input->post('password'), PASSWORD_DEFAULT), // hash password
+				'role'       	=> 'user',
+				'created_at' 	=> date('Y-m-d H:i:s')
 			];
 
 			$result = $this->Users_model->store($data);
