@@ -90,7 +90,7 @@ class Mutasi extends MY_Controller
         ];
 
         if (!empty($_FILES['dokumen']['name'])) {
-            $config['upload_path']   = './assets/doc/';
+            $config['upload_path']   = './assets/doc/mutasi/';
             $config['allowed_types'] = 'pdf|jpg|png|jpeg';
             $config['max_size']      = 2048;
             $config['encrypt_name']  = TRUE;
@@ -126,7 +126,7 @@ class Mutasi extends MY_Controller
             $this->load->view('welcome_message');
         }
 
-        $file_path = FCPATH . 'assets/doc/' . $mutasi->dokumen_mutasi;
+        $file_path = FCPATH . 'assets/doc/mutasi' . $mutasi->dokumen_mutasi;
 
         if (file_exists($file_path)) {
             $this->load->helper('download');
