@@ -76,10 +76,10 @@ class Pengguna extends MY_Controller
         ]);
     }
 
-    public function store_pengguna()
+    public function store()
     {
         $mode = $this->input->post('mode', TRUE);
-        $id   = $this->input->post('id_pengguna', TRUE);
+        $id   = $this->input->post('id', TRUE);
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');

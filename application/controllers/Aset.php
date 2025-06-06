@@ -48,6 +48,10 @@ class Aset extends MY_Controller
             'a.merk',
             'a.tipe',
             'a.jumlah',
+            'a.spesifikasi', // spesifikasi tidak ditampilkan di tabel
+            'a.sumber_data',
+            'a.harga_satuan',
+            'a.ruangan_id', // ruangan_id tidak ditampilkan di tabel
             'a.lokasi_fisik',
             'r.nama',             // alias ruangan_nama
             'a.tahun_perolehan',
@@ -78,7 +82,11 @@ class Aset extends MY_Controller
                 'lokasi_fisik' => htmlspecialchars($a['lokasi_fisik']),
                 'ruangan_nama' => htmlspecialchars($a['ruangan_nama'] ?? '-'),
                 'tahun_perolehan' => htmlspecialchars($a['tahun_perolehan']),
-                'id' => $a['id']
+                'id' => $a['id'],
+                'sumber_dana' => htmlspecialchars($a['sumber_dana']),
+                'harga_satuan' => htmlspecialchars($a['harga_satuan']),
+                'spesifikasi' => htmlspecialchars($a['spesifikasi'] ?? '-'),
+                'ruangan_id' => $a['ruangan_id']
             ];
         }
 

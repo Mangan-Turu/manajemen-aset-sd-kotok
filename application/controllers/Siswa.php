@@ -81,12 +81,10 @@ class Siswa extends MY_Controller
         ]);
     }
 
-    public function store_siswa()
+    public function store()
     {
         $mode = $this->input->post('mode', TRUE);
-        $id   = $this->input->post('id_siswa', TRUE);
-
-        var_dump($mode, $id);
+        $id   = $this->input->post('id', TRUE);
 
         $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required|trim');
         $this->form_validation->set_rules('kelas', 'Kelas', 'trim');

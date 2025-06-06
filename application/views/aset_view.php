@@ -4,7 +4,7 @@
             <div class="card-header">
                 <h2 class="card-title">Informasi Data Aset</h2>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-primary">Tambah Aset</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Tambah Aset</button>
                 </div>
             </div>
             <div class="card-body">
@@ -30,6 +30,10 @@
         </div>
     </div>
 </div>
+
+<!-- Load Modal -->
+<?php $this->load->view('components/modal/modal_tambah_aset'); ?>
+<!-- End Load Modal -->
 
 <!-- Data Table -->
 <script>
@@ -80,16 +84,46 @@
                     searchable: false,
                     className: 'text-end',
                     render: function(data, type, row) {
-                        var editUrl = '<?= base_url('aset/edit/') ?>' + data;
                         var deleteUrl = '<?= base_url('aset/delete/') ?>' + data;
                         return `
-                            <a href="${editUrl}" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="${deleteUrl}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data aset ini?')">Hapus</a>
+                            <button type="button" class="btn btn-sm btn-warning btn-edit"
+                                data-id="${data}" 
+                                data-nama_aset="${row.nama_aset}"
+                                data-kategori="${row.kategori}"
+                                data-merk="${row.merk}"
+                                data-tipe="${row.tipe}"
+                                data-spesifikasi="${row.spesifikasi}"
+                                data-jumlah="${row.jumlah}"
+                                data-satuan="${row.satuan}"
+                                data-lokasi_fisik="${row.lokasi_fisik}"
+                                data-ruangan_id="${row.ruangan_id}"
+                                data-tahun_perolehan="${row.tahun_perolehan}"
+                                data-sumber_dana="${row.sumber_dana}"
+                                data-harga_satuan="${row.harga_satuan}"
+                                data-toggle="modal" 
+                                data-target="#tambahAset"
+                            >Edit</button>
+                            <a href="" class="btn btn-sm btn-danger btn-confirm-delete" data-url="${deleteUrl}">Hapus</a>
                         `;
                     }
                 }
             ]
         });
+    });
+
+    $(document).on('click', '.btn-edit', function() {
+        const fields = ['id', 'nama_aset', 'kategori', 'merk', 'tipe', 'spesifikasi', 'jumlah', 'satuan', 'lokasi_fisik', 'ruangan_id', 'tahun_perolehan', 'sumber_dana', 'harga_satuan'];
+
+        fields.forEach(field => {
+            $(`#${field}`).val($(this).attr('data-' + field));
+        });
+
+        $('#mode').val('edit');
+        $('#modalTambahLabel').text('Edit Siswa');
+    });
+
+    $(document).on('click', '#btnTambahSiswa', function() {
+        resetForm('#formAset', 'tambah', '', 'Tambah Aset');
     });
 </script>
 <!-- End Data Table -->

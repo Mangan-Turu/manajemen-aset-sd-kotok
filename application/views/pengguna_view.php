@@ -92,7 +92,7 @@
     });
 
     $(document).on('click', '.btn-edit', function() {
-        const fields = ['id_pengguna', 'nama', 'username', 'email', 'role', 'no_hp'];
+        const fields = ['id', 'nama', 'username', 'email', 'role', 'no_hp'];
         fields.forEach(field => {
             $(`#${field}`).val($(this).data(field));
         });

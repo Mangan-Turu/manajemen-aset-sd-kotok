@@ -1,6 +1,6 @@
 <div class="modal fade" id="tambahPengguna" tabindex="-1" role="dialog" aria-labelledby="modalTambahLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="<?= site_url('pengguna/store_pengguna') ?>" method="post" id="formPengguna">
+        <form action="<?= site_url('pengguna/store') ?>" method="post" id="formPengguna">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTambahLabel">Tambah Pengguna</h5>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body row">
                     <!-- hidden input -->
-                    <input type="hidden" name="id_pengguna" id="id_pengguna" value="">
+                    <input type="hidden" name="id" id="id" value="">
                     <input type="hidden" name="mode" id="mode" value="tambah">
                     <!-- end hidden input -->
 

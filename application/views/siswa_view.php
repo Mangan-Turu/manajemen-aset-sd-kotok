@@ -74,7 +74,7 @@
                         var deleteUrl = '<?= base_url('siswa/delete/') ?>' + data;
                         return `
                             <button type="button" class="btn btn-sm btn-warning btn-edit"
-                                data-id_siswa="${data}"
+                                data-id="${data}"
                                 data-nis="${row.nis}"
                                 data-nama_siswa="${row.nama_siswa}"
                                 data-kelas="${row.kelas}"
@@ -99,7 +99,7 @@
     });
 
     $(document).on('click', '.btn-edit', function() {
-        const fields = ['id_siswa', 'nis', 'nama_siswa', 'kelas', 'tempat_lahir', 'tanggal_lahir','jenis_kelamin', 'alamat', 'nama_ortu', 'no_hp_ortu', 'status_aktif'];
+        const fields = ['id', 'nis', 'nama_siswa', 'kelas', 'tempat_lahir', 'tanggal_lahir','jenis_kelamin', 'alamat', 'nama_ortu', 'no_hp_ortu', 'status_aktif'];
 
         fields.forEach(field => {
             $(`#${field}`).val($(this).attr('data-' + field));
