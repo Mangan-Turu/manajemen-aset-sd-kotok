@@ -55,6 +55,7 @@ class Aset extends MY_Controller
             'a.lokasi_fisik',
             'r.nama',             // alias ruangan_nama
             'a.tahun_perolehan',
+            'a.satuan',
             'a.id'                // id untuk action (edit/delete)
         ];
 
@@ -86,7 +87,9 @@ class Aset extends MY_Controller
                 'sumber_dana' => htmlspecialchars($a['sumber_dana']),
                 'harga_satuan' => htmlspecialchars($a['harga_satuan']),
                 'spesifikasi' => htmlspecialchars($a['spesifikasi'] ?? '-'),
-                'ruangan_id' => $a['ruangan_id']
+                'ruangan_id' => $a['ruangan_id'],
+                'satuan' => htmlspecialchars($a['satuan'] ?? '-'),
+
             ];
         }
 

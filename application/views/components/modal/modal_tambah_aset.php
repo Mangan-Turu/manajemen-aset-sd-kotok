@@ -39,12 +39,12 @@
                         <input type="number" min="0" class="form-control" name="jumlah" id="jumlah" required placeholder="Masukkan Jumlah" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="satuan">Qty</label>
-                        <input type="text" min="0" class="form-control" name="satuan" id="satuan" required placeholder="Masukkan Satuan" style="border: 1.5px solid #00AAC1;">
+                        <label for="satuan">Satuan</label>
+                        <input type="text" class="form-control" name="satuan" id="satuan" required placeholder="Masukkan Satuan" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="lokasi_fisik">Lokasi Fisik</label>
-                        <input type="text" min="0" class="form-control" name="lokasi_fisik" id="lokasi_fisik" required placeholder="Masukkan Lokasi Fisik" style="border: 1.5px solid #00AAC1;">
+                        <input type="text" class="form-control" name="lokasi_fisik" id="lokasi_fisik" required placeholder="Masukkan Lokasi Fisik" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="ruangan_id">Ruangan</label>

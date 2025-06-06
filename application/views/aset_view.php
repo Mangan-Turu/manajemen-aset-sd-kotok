@@ -116,14 +116,17 @@
 
         fields.forEach(field => {
             $(`#${field}`).val($(this).attr('data-' + field));
+            console.log($(this).attr('data-' + field));
         });
 
         $('#mode').val('edit');
-        $('#modalTambahLabel').text('Edit Siswa');
+        $('#modalTambahLabel').text('Edit Aset');
     });
 
     $(document).on('click', '#btnTambahSiswa', function() {
         resetForm('#formAset', 'tambah', '', 'Tambah Aset');
     });
+
+    fetchRuangan('ruangan_id');
 </script>
 <!-- End Data Table -->
