@@ -71,7 +71,6 @@
                     searchable: false,
                     className: 'text-end',
                     render: function(data, type, row) {
-                        var editUrl = '<?= base_url('pengguna/edit/') ?>' + data;
                         var deleteUrl = '<?= base_url('pengguna/delete/') ?>' + data;
                         return `
                             <button type="button" class="btn btn-sm btn-warning btn-edit"
@@ -93,19 +92,11 @@
     });
 
     $(document).on('click', '.btn-edit', function() {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama');
-        var username = $(this).data('username');
-        var email = $(this).data('email');
-        var role = $(this).data('role');
-        var no_hp = $(this).data('no_hp') || '';
+        const fields = ['id_pengguna', 'nama', 'username', 'email', 'role', 'no_hp'];
+        fields.forEach(field => {
+            $(`#${field}`).val($(this).data(field));
+        });
 
-        $('#id_pengguna').val(id);
-        $('#nama').val(nama);
-        $('#username').val(username);
-        $('#email').val(email);
-        $('#role').val(role);
-        $('#no_hp').val(no_hp);
         $('#mode').val('edit');
         $('#modalTambahLabel').text('Edit Pengguna');
     });

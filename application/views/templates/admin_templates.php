@@ -41,6 +41,19 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <!-- Custom CSS and JS -->
+    <script>
+        // Reset Form
+        function resetForm(form, mode, id, label) {
+            $(form)[0].reset();
+            $(mode).val('tambah');
+            $(id).val('');
+            $(label).text('Tambah Pengguna');
+        }
+        // End Reset Form
+    </script>
+    <!-- End Custom CSS and JS -->
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -368,7 +381,6 @@
                 }
             });
         });
-
         // End Swal alert
     </script>
 </body>
