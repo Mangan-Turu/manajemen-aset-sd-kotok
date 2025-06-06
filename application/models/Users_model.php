@@ -68,4 +68,23 @@ class Users_model extends CI_Model
         $this->db->limit($length, $start);
         return $this->db->get('users')->result_array();
     }
+
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete($this->table_users);
+        return $this->db->affected_rows() > 0;
+    }
+
+    public function update($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update($this->table_users, $data);
+        return $this->db->affected_rows() > 0;
+    }
+
+    public function find($id)
+    {
+        return $this->db->get_where($this->table_users, ['id' => $id])->row_array();
+    }
 }

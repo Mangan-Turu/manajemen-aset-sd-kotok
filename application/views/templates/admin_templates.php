@@ -27,6 +27,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/summernote/summernote-bs4.min.css">
     <script src="<?= base_url(); ?>/assets/templates/AdminLTE-3.2.0/dist/js/sweetalert.js"></script>
+
+    <!-- swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <!-- DataTables -->
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -251,6 +255,30 @@
                 <div class="container-fluid">
                     <!-- Main row -->
 
+                    <!-- Show Alert -->
+                    <div class="row">
+                        <div class="col">
+                            <?php if ($this->session->flashdata('alert_danger')): ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <?= $this->session->flashdata('alert_danger') ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('alert_success')): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <?= $this->session->flashdata('alert_success') ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <!-- End Show Alert -->
+
                     <?= $contents; ?>
 
                     <!-- /.row (main row) -->
@@ -309,7 +337,40 @@
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        // Swal alert
+        $(document).on('click', '.btn-confirm-delete', function(e) {
+            e.preventDefault();
+
+            console.log('Button clicked');
+            const deleteUrl = $(this).data('url');
+            const message = $(this).data('message') || 'Yakin ingin menghapus data ini?';
+
+
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (typeof callback === 'function') {
+                        callback();
+                    } else if (deleteUrl) {
+                        window.location.href = deleteUrl;
+                    }
+                }
+            });
+        });
+
+        // End Swal alert
+    </script>
 </body>
 
 </html>

@@ -59,14 +59,12 @@ class Pengguna extends MY_Controller
         foreach ($users as $u) {
             $row    = [];
             $row['no']          = $no++;
+            $row['id']          = $u['id'];
             $row['nama']        = htmlspecialchars($u['nama']);
             $row['username']    = htmlspecialchars($u['username']);
             $row['email']       = htmlspecialchars($u['email']);
+            $row['no_hp']       = htmlspecialchars($u['no_hp']) ?: '';
             $row['role']        = htmlspecialchars($u['role']) ?: '-';
-            $row['aksi']        = '
-                                    <a href="' . base_url('pengguna/edit/' . $u['id']) . '" class="btn btn-sm btn-warning">Edit</a>
-                                    <a href="' . base_url('pengguna/delete/' . $u['id']) . '" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin hapus?\')">Hapus</a>
-                                ';
             $data[] = $row;
         }
 
@@ -76,5 +74,71 @@ class Pengguna extends MY_Controller
             "recordsFiltered" => $totalFiltered,
             "data" => $data
         ]);
+    }
+
+    public function store_pengguna()
+    {
+        $mode = $this->input->post('mode', TRUE);
+        $id   = $this->input->post('id_pengguna', TRUE);
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
+        $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,kepala_sekolah]');
+
+        if ($mode === 'edit') {
+            if ($this->input->post('password')) {
+                $this->form_validation->set_rules('password', 'Password', 'trim|min_length[6]');
+            }
+        } else {
+            $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
+            $this->form_validation->set_rules('username', 'Username', 'is_unique[users.username]');
+            $this->form_validation->set_rules('email', 'Email', 'is_unique[users.email]');
+        }
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('alert_danger', validation_errors());
+            redirect('pengguna');
+        }
+
+        $data = [
+            'nama'       => $this->input->post('nama', TRUE),
+            'username'   => $this->input->post('username', TRUE),
+            'email'      => $this->input->post('email', TRUE),
+            'role'       => $this->input->post('role', TRUE),
+            'no_hp'      => $this->input->post('no_hp', TRUE),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+
+        $password = $this->input->post('password');
+        if (!empty($password)) {
+            $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        if ($mode === 'edit') {
+            $this->db->where('id', $id)->update('users', $data);
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Pengguna berhasil diperbarui.']
+                : ['alert_danger', 'Gagal memperbarui pengguna.'];
+        } else {
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $this->db->insert('users', $data);
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Pengguna berhasil ditambahkan.']
+                : ['alert_danger', 'Gagal menambahkan pengguna.'];
+        }
+
+        $this->session->set_flashdata($message[0], $message[1]);
+        redirect('pengguna');
+    }
+
+    public function delete($id)
+    {
+        if ($this->users_model->delete($id)) {
+            $this->session->set_flashdata('alert_success', 'Pengguna berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('alert_danger', 'Gagal menghapus pengguna.');
+        }
+        redirect('pengguna');
     }
 }
