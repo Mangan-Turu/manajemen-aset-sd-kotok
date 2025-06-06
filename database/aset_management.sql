@@ -164,6 +164,49 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- Tabel pemeliharaan aset
+CREATE TABLE IF NOT EXISTS `t_aset_pemeliharaan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `aset_id` int NOT NULL,
+  `tanggal_pemeliharaan` date NOT NULL,
+  `jenis_pemeliharaan` varchar(100) NOT NULL,
+  `deskripsi` text,
+  `biaya` decimal(12,2) DEFAULT NULL,
+  `dokumen_pemeliharaan` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `deleted_by` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aset_id` (`aset_id`),
+  CONSTRAINT `t_aset_pemeliharaan_ibfk_1` FOREIGN KEY (`aset_id`) REFERENCES `m_aset` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- Tabel kerusakan aset
+CREATE TABLE IF NOT EXISTS `t_aset_kerusakan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `aset_id` int NOT NULL,
+  `tanggal_kerusakan` date NOT NULL,
+  `jenis_kerusakan` varchar(100) NOT NULL,
+  `deskripsi` text,
+  `status_perbaikan` enum('belum diperbaiki','sedang diperbaiki','selesai') DEFAULT 'belum diperbaiki',
+  `biaya_perbaikan` decimal(12,2) DEFAULT NULL,
+  `dokumen_kerusakan` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `deleted_by` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aset_id` (`aset_id`),
+  CONSTRAINT `t_aset_kerusakan_ibfk_1` FOREIGN KEY (`aset_id`) REFERENCES `m_aset` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 -- Data exporting was unselected.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;

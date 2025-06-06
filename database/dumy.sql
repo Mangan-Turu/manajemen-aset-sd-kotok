@@ -66,3 +66,18 @@ VALUES
 (8, 1, 3, 3, '2024-06-01', 'Laptop digunakan tetap', 'mut8.pdf', 1),
 (9, 2, 1, 2, '2024-06-05', 'Papan tulis cadangan', 'mut9.pdf', 1),
 (10, 1, 4, 5, '2024-06-10', 'Alat lab dipinjam perpustakaan', 'mut10.pdf', 1);
+
+-- Dummy data untuk t_aset_pemeliharaan
+INSERT INTO `t_aset_pemeliharaan` (`aset_id`, `tanggal_pemeliharaan`, `jenis_pemeliharaan`, `deskripsi`, `biaya`, `dokumen_pemeliharaan`, `created_by`)
+VALUES
+(1, '2025-05-10', 'Servis rutin', 'Pembersihan dan pengecekan rutin alat elektronik.', 150000, 'dokumen/servis1.pdf', 1),
+(2, '2025-04-22', 'Penggantian suku cadang', 'Ganti baterai dan kabel power.', 350000, 'dokumen/servis2.pdf', 2),
+(3, '2025-03-15', 'Kalibrasi alat', 'Kalibrasi alat ukur sesuai standar.', 250000, NULL, 1);
+
+-- Dummy data untuk t_aset_kerusakan
+INSERT INTO `t_aset_kerusakan` (`aset_id`, `tanggal_kerusakan`, `jenis_kerusakan`, `deskripsi`, `status_perbaikan`, `biaya_perbaikan`, `dokumen_kerusakan`, `created_by`)
+VALUES
+(1, '2025-05-20', 'Kerusakan mekanik', 'Mesin mengalami kerusakan pada bagian roda gigi.', 'sedang diperbaiki', 500000, 'dokumen/kerusakan1.jpg', 2),
+(2, '2025-06-01', 'Kerusakan listrik', 'Alat tidak menyala, kemungkinan konslet.', 'belum diperbaiki', NULL, NULL, 1),
+(4, '2025-04-30', 'Kerusakan fisik', 'Layar monitor retak akibat benturan.', 'selesai', 750000, 'dokumen/kerusakan3.jpg', 2);
+
