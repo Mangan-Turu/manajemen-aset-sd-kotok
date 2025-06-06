@@ -126,7 +126,7 @@ class Mutasi extends MY_Controller
             $this->load->view('welcome_message');
         }
 
-        $file_path = FCPATH . 'assets/doc/mutasi' . $mutasi->dokumen_mutasi;
+        $file_path = FCPATH . 'assets/doc/mutasi/' . $mutasi->dokumen_mutasi;
 
         if (file_exists($file_path)) {
             $this->load->helper('download');
