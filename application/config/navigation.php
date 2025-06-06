@@ -23,50 +23,50 @@ $config['navigation'] = [
     [
         'label' => 'Pengguna',
         'icon' => 'fas fa-user', // Ikon orang untuk pengguna
-        'url' => 'kriteria',
-        'active' => ['kriteria']
+        'url' => 'pengguna',
+        'active' => ['pengguna']
     ],
     [
         'label' => 'Siswa',
         'icon' => 'fas fa-user-graduate', // Ikon siswa/mahasiswa
-        'url' => 'karyawan',
-        'active' => ['karyawan']
+        'url' => 'siswa',
+        'active' => ['siswa']
     ],
     [
         'label' => 'Aset',
         'icon' => 'fas fa-boxes', // Ikon untuk aset atau inventaris
-        'url' => 'penilaian',
-        'active' => ['penilaian']
+        'url' => 'aset',
+        'active' => ['aset']
     ],
     [
         'label' => 'Pengadaan',
         'icon' => 'fas fa-cart-plus', // Ikon pengadaan atau pembelian
-        'url' => 'hasil',
-        'active' => ['hasil']
+        'url' => 'pengadaan',
+        'active' => ['pengadaan']
     ],
     [
         'label' => 'Mutasi',
         'icon' => 'fas fa-exchange-alt', // Ikon mutasi atau perpindahan
-        'url' => 'hasil',
-        'active' => ['hasil']
+        'url' => 'mutasi',
+        'active' => ['mutasi']
     ],
     [
         'label' => 'Pemeliharaan',
         'icon' => 'fas fa-tools', // Ikon alat untuk pemeliharaan
-        'url' => 'hasil',
-        'active' => ['hasil']
+        'url' => 'pemeliharaan',
+        'active' => ['pemeliharaan']
     ],
     [
         'label' => 'Kerusakan',
         'icon' => 'fas fa-exclamation-triangle', // Ikon peringatan untuk kerusakan
-        'url' => 'hasil',
-        'active' => ['hasil']
+        'url' => 'kerusakan',
+        'active' => ['kerusakan']
     ],
     [
         'label' => 'Ruangan',
         'icon' => 'fas fa-door-open', // Ikon ruangan
-        'url' => 'hasil',
-        'active' => ['hasil']
+        'url' => 'ruangan',
+        'active' => ['ruangan']
     ],
     [
         'label' => 'Logout',

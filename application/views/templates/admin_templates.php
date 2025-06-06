@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title><?= isset($title) ? $title : 'Tidak ada judul'; ?></title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,6 +26,17 @@
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/summernote/summernote-bs4.min.css">
+    <script src="<?= base_url(); ?>/assets/templates/AdminLTE-3.2.0/dist/js/sweetalert.js"></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <!-- Jquery -->
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -39,7 +50,7 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
-            <h3 class="m-0 px-2">Dashboard</h3>
+            <h3 class="m-0 px-2"><?= isset($title) ? $title : ''; ?></h3>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -264,11 +275,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
@@ -294,10 +300,15 @@
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <!-- <script src="</?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/dist/js/pages/dashboard.js"></script> -->
+
+    <!-- DataTables  & Plugins -->
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
 
 </body>
 

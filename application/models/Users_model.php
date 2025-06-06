@@ -10,6 +10,14 @@ class Users_model extends CI_Model
         parent::__construct();
     }
 
+    public function get_all()
+    {
+        $this->db->select('*');
+        $this->db->from($this->table_users);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function store($data)
     {
         $this->db->insert($this->table_users, $data);
@@ -28,5 +36,36 @@ class Users_model extends CI_Model
     public function get_by_email($email)
     {
         return $this->db->get_where('users', ['email' => $email])->row();
+    }
+
+    public function count_all()
+    {
+        return $this->db->count_all('users');
+    }
+
+    public function count_filtered($search)
+    {
+        if (!empty($search)) {
+            $this->db->like('nama', $search);
+            $this->db->or_like('username', $search);
+            $this->db->or_like('email', $search);
+            $this->db->or_like('role', $search);
+        }
+
+        return $this->db->count_all_results('users');
+    }
+
+    public function get_dt_all($start, $length, $search, $order_column, $order_dir)
+    {
+        if (!empty($search)) {
+            $this->db->like('nama', $search);
+            $this->db->or_like('username', $search);
+            $this->db->or_like('email', $search);
+            $this->db->or_like('role', $search);
+        }
+
+        $this->db->order_by($order_column, $order_dir);
+        $this->db->limit($length, $start);
+        return $this->db->get('users')->result_array();
     }
 }
