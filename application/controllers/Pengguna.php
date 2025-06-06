@@ -31,9 +31,7 @@ class Pengguna extends MY_Controller
     {
         $data['title'] = 'Data Pengguna';
 
-        $data['pengguna'] = $this->users_model->get_all();
-
-        $data['contents'] = $this->load->view('pengguna_view', $data, true);
+        $data['contents'] = $this->load->view('_view', $data, true);
         $this->load->view('templates/admin_templates', $data);
     }
 

@@ -2,25 +2,25 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">Informasi Data Pengguna</h2>
+                <h2 class="card-title">Informasi Data Siswa</h2>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-primary">Tambah Pengguna</button>
+                    <button type="button" class="btn btn-sm btn-primary">Tambah Siswa</button>
                 </div>
             </div>
             <div class="card-body">
-                <table id="datatable-pengguna" class="table table-bordered table-striped">
+                <table id="datatable-siswa" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>NIS</th>
                             <th>Nama</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Kelas</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Orang Tua</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -30,30 +30,33 @@
 <!-- Data Table -->
 <script>
     $(function() {
-        $('#datatable-pengguna').DataTable({
+        $('#datatable-siswa').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: '<?= base_url('pengguna/get_pengguna') ?>',
+                url: '<?= base_url('siswa/get_siswa') ?>',
                 type: 'POST',
                 data: function(d) {
-                    d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>'; // sesuaikan nama tokennya
+                    d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>'; // ganti jika nama CSRF berbeda
                 }
             },
             columns: [{
                     data: 'no'
                 },
                 {
-                    data: 'nama'
+                    data: 'nis'
                 },
                 {
-                    data: 'username'
+                    data: 'nama_siswa'
                 },
                 {
-                    data: 'email'
+                    data: 'kelas'
                 },
                 {
-                    data: 'role'
+                    data: 'jenis_kelamin'
+                },
+                {
+                    data: 'nama_ortu'
                 },
                 {
                     data: 'id',
@@ -61,12 +64,12 @@
                     searchable: false,
                     className: 'text-end',
                     render: function(data, type, row) {
-                        var editUrl = '<?= base_url('pengguna/edit/') ?>' + data;
-                        var deleteUrl = '<?= base_url('pengguna/delete/') ?>' + data;
+                        var editUrl = '<?= base_url('siswa/edit/') ?>' + data;
+                        var deleteUrl = '<?= base_url('siswa/delete/') ?>' + data;
                         return `
                             <a href="${editUrl}" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="${deleteUrl}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</a>
-                            `;
+                            <a href="${deleteUrl}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data siswa ini?')">Hapus</a>
+                        `;
                     }
                 }
             ]
