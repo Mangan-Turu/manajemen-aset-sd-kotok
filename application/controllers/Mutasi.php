@@ -123,7 +123,7 @@ class Mutasi extends MY_Controller
         $mutasi = $this->Mutasi_model->get_by_id($id);
 
         if (!$mutasi || empty($mutasi->dokumen_mutasi)) {
-            $this->load->view('welcome_message');
+            $this->load->view('errors/gagal_download');
         }
 
         $file_path = FCPATH . 'assets/doc/mutasi/' . $mutasi->dokumen_mutasi;
