@@ -118,13 +118,18 @@ class Pemeliharaan extends MY_Controller
     
         if ($mode === 'edit' && $id) {
             $this->db->where('id', $id)->update('t_aset_pemeliharaan', $data);
-            $this->session->set_flashdata('success', 'Data pemeliharaan berhasil diperbarui.');
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data Pemeliharaan berhasil diperbarui.']
+                : ['alert_danger', 'Gagal memperbarui data Pemeliharaan atau tidak ada perubahan data.'];
         } else {
             $data['created_by'] = $this->session->userdata('user_id');
             $this->db->insert('t_aset_pemeliharaan', $data);
-            $this->session->set_flashdata('success', 'Data pemeliharaan berhasil ditambahkan.');
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data Pemeliharanaan berhasil ditambahkan.']
+                : ['alert_danger', 'Gagal memperbarui data Pemeliharanaan atau tidak ada perubahan data.'];
         }
-    
+        
+        $this->session->set_flashdata($message[0], $message[1]);
         redirect('pemeliharaan');
     }    
 

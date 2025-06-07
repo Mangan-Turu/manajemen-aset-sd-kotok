@@ -108,13 +108,18 @@ class Mutasi extends MY_Controller
 
         if ($mode === 'edit' && $id) {
             $this->db->where('id', $id)->update('m_mutasi', $data);
-            $this->session->set_flashdata('success', 'Data mutasi berhasil diperbarui.');
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data Mutasi berhasil diperbarui.']
+                : ['alert_danger', 'Gagal memperbarui data Mutasi atau tidak ada perubahan data.'];
         } else {
             $data['created_by'] = $this->session->userdata('user_id');
             $this->db->insert('m_mutasi', $data);
-            $this->session->set_flashdata('success', 'Data mutasi berhasil ditambahkan.');
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data Mutasi berhasil ditambahkan.']
+                : ['alert_danger', 'Gagal menambahkan data Mutasi.'];
         }
 
+        $this->session->set_flashdata($message[0], $message[1]);
         redirect('mutasi');
     }
 
