@@ -27,7 +27,6 @@
         <img src="<?= base_url('assets/images/error.png'); ?>" alt="Sad Face Pixel Art" class="sad-pixel">
 
         <p class="lead">Data yang Anda cari tidak ditemukan atau tidak tersedia.</p>
-        <a href="<?= base_url('mutasi') ?>" class="btn btn-info mt-3" style="color: white;">Kembali ke Daftar Mutasi</a>
     </div>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
