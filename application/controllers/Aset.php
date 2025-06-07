@@ -30,6 +30,7 @@ class Aset extends MY_Controller
     public function index()
     {
         $data['title'] = 'Data Aset';
+        $data['kategori'] = $this->asets_model->get_kategori();
 
         $data['contents'] = $this->load->view('aset_view', $data, true);
         $this->load->view('templates/admin_templates', $data);

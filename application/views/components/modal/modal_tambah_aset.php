@@ -20,7 +20,19 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="kategori">Kategori</label>
-                        <input type="text" class="form-control" name="kategori" id="kategori" required placeholder="Masukkan Kategori" style="border: 1.5px solid #00AAC1;">
+
+                        <!-- Dropdown kategori -->
+                        <select class="form-control" id="kategoriSelect" style="border: 1.5px solid #00AAC1;">
+                            <option value="">-- Pilih Kategori --</option>
+                            <?php foreach ($kategori as $item) : ?>
+                                <option value="<?= $item['kategori']; ?>"><?= $item['kategori']; ?></option>
+                            <?php endforeach ?>
+                            <option value="Lainnya">Lainnya (input manual)</option>
+                        </select>
+
+                        <!-- Input manual, sembunyikan dulu -->
+                        <input type="text" class="form-control mt-2" name="kategori" id="kategoriInput"
+                            placeholder="Masukkan Kategori" style="border: 1.5px solid #00AAC1; display: none;">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="merk">Merk</label>
@@ -75,3 +87,15 @@
         </form>
     </div>
 </div>
+
+<script>
+    $('#kategoriSelect').on('change', function() {
+        const val = $(this).val();
+
+        if (val === 'Lainnya') {
+            $('#kategoriInput').show().prop('required', true);
+        } else {
+            $('#kategoriInput').hide().prop('required', false).val(val);
+        }
+    });
+</script>

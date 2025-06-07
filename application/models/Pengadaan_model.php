@@ -56,4 +56,13 @@ class Pengadaan_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_all_suppliers()
+    {
+        $this->db->distinct();
+        $this->db->select('supplier');
+        $this->db->from('m_pengadaan');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

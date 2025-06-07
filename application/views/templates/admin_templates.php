@@ -44,6 +44,11 @@
 
     <!-- Custom CSS and JS -->
     <script>
+        const OPTION_URL = {
+            get_aset: '<?= site_url('option/get_aset') ?>',
+            get_ruangan: '<?= site_url('option/get_ruangan') ?>'
+        };
+
         // Reset Form
         function resetForm(form, mode, id, label) {
             $(form)[0].reset();
@@ -57,7 +62,7 @@
         // Select Ruangan
         function fetchRuangan(selectId) {
             $.ajax({
-                url: URL.get_ruangan,
+                url: OPTION_URL.get_ruangan,
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -73,6 +78,26 @@
             });
         }
         // End Select Ruangan
+
+        // Select Aset
+        function fetchAset(selectId) {
+            $.ajax({
+                url: OPTION_URL.get_aset,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $select = $(`#${selectId}`);
+                    $select.empty().append('<option value="">Pilih Asset</option>');
+                    data.forEach(item => {
+                        $select.append(`<option value="${item.id}">${item.nama_aset}</option>`);
+                    });
+                },
+                error: function() {
+                    alert('Gagal mengambil data aset.');
+                }
+            });
+        }
+        // End Select Aset
     </script>
     <!-- End Custom CSS and JS -->
 </head>

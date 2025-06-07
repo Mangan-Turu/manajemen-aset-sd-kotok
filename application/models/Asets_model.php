@@ -61,4 +61,16 @@ class Asets_model extends CI_Model
 
         return $this->db->get()->result_array();
     }
+
+    public function get_kategori()
+    {
+        $this->db->distinct();
+        $this->db->select('kategori');
+        $this->db->from($this->table);
+        $this->db->where('deleted', 0);
+        $this->db->order_by('kategori', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

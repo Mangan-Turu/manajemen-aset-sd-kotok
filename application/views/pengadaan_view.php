@@ -4,7 +4,8 @@
             <div class="card-header">
                 <h2 class="card-title">Informasi Data Siswa</h2>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-primary">Tambah Siswa</button>
+                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahPengadaan" id="btnTambahPengadaan">Download Laporan</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahPengadaan" id="btnTambahPengadaan">Tambah Pengadaan</button>
                 </div>
             </div>
             <div class="card-body">
@@ -31,8 +32,13 @@
     </div>
 </div>
 
+<!-- Load Modal -->
+<?php $this->load->view('components/modal/modal_tambah_pengadaan'); ?>
+<!-- End Load Modal -->
+
 <!-- Data Table -->
 <script>
+    const BASE_URL = '<?= base_url() ?>';
     $(function() {
         $('#datatable-pengadaan').DataTable({
             processing: true,
@@ -83,16 +89,62 @@
                     searchable: false,
                     className: 'text-end',
                     render: function(data, type, row) {
-                        var editUrl = '<?= base_url('pengadaan/edit/') ?>' + data;
                         var deleteUrl = '<?= base_url('pengadaan/delete/') ?>' + data;
                         return `
-                        <a href="${editUrl}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="${deleteUrl}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data pengadaan ini?')">Hapus</a>
+                          <button type="button" class="btn btn-sm btn-warning btn-edit"
+                                data-id="${data}"
+                                data-aset_id="${row.aset_id}"
+                                data-jumlah="${row.jumlah}"
+                                data-satuan="${row.satuan}"
+                                data-harga_satuan="${row.harga_satuan}"
+                                data-total_harga="${row.total_harga}"
+                                data-sumber_dana="${row.sumber_dana}"
+                                data-supplier="${row.supplier}"
+                                data-dokumen_pengadaan="${row.dokumen_pengadaan}"
+                                data-preview_dokumen="${BASE_URL}${row.dokumen_pengadaan}"
+                                data-keterangan="${row.keterangan}"
+                                data-tanggal_pengadaan="${moment(row.tanggal_pengadaan).format('YYYY-MM-DD')}"
+                                data-toggle="modal"
+                                data-target="#tambahPengadaan"
+                            >
+                                Edit
+                            </button>
+                            <a href="" data-url="${deleteUrl}" class="btn btn-sm btn-danger btn-confirm-delete">Batal</a>
                     `;
                     }
                 }
             ]
         });
     });
+
+    $(document).on('click', '.btn-edit', function() {
+        const fields = ['id', 'aset_id', 'jumlah', 'satuan', 'harga_satuan', 'total_harga', 'sumber_dana', 'supplier', 'dokumen_pengadaan', 'keterangan', 'tanggal_pengadaan'];
+
+        fields.forEach(field => {
+            if (field === 'dokumen_pengadaan') {
+                const fileName = $(this).attr(`data-${field}`);
+                if (fileName) {
+                    $('#dokumen_pengadaan_preview').html(`<small>File sebelumnya: <a href="/uploads/${fileName}" target="_blank">${fileName}</a></small>`);
+                } else {
+                    $('#dokumen_pengadaan_preview').html('');
+                }
+            } else {
+                $(`#${field}`).val($(this).attr(`data-${field}`));
+            }
+        });
+
+        $('#satuanInput').val($(this).attr('data-satuan'));
+        $('#suplierInput').val($(this).attr('data-supplier'));
+        $('#preview_dokumen').attr('href', $(this).attr('data-preview_dokumen') || '#');
+
+        $('#mode').val('edit');
+        $('#modalTambahLabel').text('Edit Pengadaan');
+    });
+
+    $(document).on('click', '#btnTambahSiswa', function() {
+        resetForm('#formSiswa', 'tambah', '', 'Tambah Pengadaan');
+    });
+
+    fetchAset('aset_id');
 </script>
 <!-- End Data Table -->
