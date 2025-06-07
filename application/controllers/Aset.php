@@ -100,4 +100,85 @@ class Aset extends MY_Controller
             "data" => $data
         ]);
     }
+
+    public function store()
+    {
+        $mode = $this->input->post('mode', TRUE);
+        $id   = $this->input->post('id', TRUE);
+
+        $this->form_validation->set_rules('nama_aset', 'Nama Aset', 'required');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required');
+        $this->form_validation->set_rules('merk', 'Merk', 'required');
+        $this->form_validation->set_rules('tipe', 'Tipe', 'required');
+        $this->form_validation->set_rules('spesifikasi', 'Spesifikasi', 'required');
+        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|numeric');
+        $this->form_validation->set_rules('satuan', 'Satuan', 'required');
+        $this->form_validation->set_rules('lokasi_fisik', 'Lokasi Fisik', 'required');
+        $this->form_validation->set_rules('ruangan_id', 'Ruangan', 'required|numeric');
+        $this->form_validation->set_rules('tahun_perolehan', 'Tahun Perolehan', 'required|numeric');
+        $this->form_validation->set_rules('sumber_dana', 'Sumber Dana', 'required');
+        $this->form_validation->set_rules('harga_satuan', 'Harga Satuan', 'required|numeric');
+
+        if ($mode === 'edit') {
+            $this->form_validation->set_rules('id', 'ID Aset', 'required|numeric');
+        }
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->session->set_flashdata('alert_danger', validation_errors());
+            redirect('aset');
+            return;
+        }
+
+        $data = [
+            'nama_aset'         => $this->input->post('nama_aset', TRUE),
+            'kategori'          => $this->input->post('kategori', TRUE),
+            'merk'              => $this->input->post('merk', TRUE),
+            'tipe'              => $this->input->post('tipe', TRUE),
+            'spesifikasi'       => $this->input->post('spesifikasi', TRUE),
+            'jumlah'            => $this->input->post('jumlah', TRUE),
+            'satuan'            => $this->input->post('satuan', TRUE),
+            'lokasi_fisik'      => $this->input->post('lokasi_fisik', TRUE),
+            'ruangan_id'        => $this->input->post('ruangan_id', TRUE),
+            'tahun_perolehan'   => $this->input->post('tahun_perolehan', TRUE),
+            'sumber_dana'       => $this->input->post('sumber_dana', TRUE),
+            'harga_satuan'      => $this->input->post('harga_satuan', TRUE)
+        ];
+
+        if ($mode === 'edit' && !empty($id)) {
+            $this->db->where('id', $id);
+            $this->db->update('m_aset', $data);
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data aset berhasil diperbarui.']
+                : ['alert_danger', 'Gagal memperbarui data aset atau tidak ada perubahan data.'];
+        } else {
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $this->db->insert('m_aset', $data);
+            $message = $this->db->affected_rows() > 0
+                ? ['alert_success', 'Data aset berhasil ditambahkan.']
+                : ['alert_danger', 'Gagal menambahkan data aset.'];
+        }
+
+        $this->session->set_flashdata($message[0], $message[1]);
+        redirect('aset');
+    }
+
+    public function delete($id)
+    {
+        if (empty($id)) {
+            $this->session->set_flashdata('alert_danger', 'ID aset tidak ditemukan.');
+            redirect('aset');
+            return;
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('m_aset', ['deleted' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
+
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('alert_success', 'Data aset berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('alert_danger', 'Gagal menghapus data aset atau data sudah dihapus sebelumnya.');
+        }
+
+        redirect('aset');
+    }
 }

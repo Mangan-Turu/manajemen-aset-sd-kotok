@@ -37,6 +37,11 @@
 
 <!-- Data Table -->
 <script>
+    const URL = {
+        get_aset: '<?= site_url('option/get_aset') ?>',
+        get_ruangan: '<?= site_url('option/get_ruangan') ?>'
+    };
+
     $(function() {
         $('#datatable-aset').DataTable({
             processing: true,

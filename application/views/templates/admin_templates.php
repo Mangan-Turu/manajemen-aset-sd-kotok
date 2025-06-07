@@ -52,6 +52,27 @@
             $(label).text('Tambah Pengguna');
         }
         // End Reset Form
+
+
+        // Select Ruangan
+        function fetchRuangan(selectId) {
+            $.ajax({
+                url: URL.get_ruangan,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $select = $(`#${selectId}`);
+                    $select.empty().append('<option value="">Pilih Ruangan</option>');
+                    data.forEach(item => {
+                        $select.append(`<option value="${item.id}">${item.nama_ruangan}</option>`);
+                    });
+                },
+                error: function() {
+                    alert('Gagal mengambil data ruangan.');
+                }
+            });
+        }
+        // End Select Ruangan
     </script>
     <!-- End Custom CSS and JS -->
 </head>
