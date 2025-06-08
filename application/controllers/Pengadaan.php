@@ -87,6 +87,23 @@ class Pengadaan extends MY_Controller
         $mode = $this->input->post('mode');
         $id = $this->input->post('id');
 
+        if ($mode !== 'edit') {
+            $this->db->select('no_pengadaan');
+            $this->db->like('no_pengadaan', 'PGN');
+            $this->db->order_by('no_pengadaan', 'DESC');
+            $this->db->limit(1);
+            $last = $this->db->get('m_pengadaan')->row();
+
+            if ($last) {
+                $num = (int) substr($last->no_pengadaan, 3);
+                $newKode = 'PGN' . str_pad($num + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                $newKode = 'PGN001';
+            }
+
+            $_POST['no_pengadaan'] = $newKode;
+        }
+
         // Validasi
         $this->form_validation->set_rules('tanggal_pengadaan', 'Tanggal Pengadaan', 'required');
         $this->form_validation->set_rules('aset_id', 'Aset', 'required');
@@ -107,6 +124,7 @@ class Pengadaan extends MY_Controller
 
         // Data awal dari input
         $data = [
+            'no_pengadaan'      => $this->input->post('no_pengadaan'),
             'tanggal_pengadaan' => $this->input->post('tanggal_pengadaan'),
             'aset_id'           => $this->input->post('aset_id'),
             'jumlah'            => $this->input->post('jumlah'),

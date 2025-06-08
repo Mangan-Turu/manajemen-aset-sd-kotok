@@ -12,6 +12,7 @@
                     <!-- hidden input -->
                     <input type="hidden" name="id" id="id" value="">
                     <input type="hidden" name="mode" id="mode" value="tambah">
+                    <input type="hidden" name="no_pengadaan" value="">
                     <!-- end hidden input -->
 
                     <div class="form-group col-md-6">
@@ -70,7 +71,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dokumen_pengadaan">Dokumen Pengadaan</label>
-                        <input type="file" class="form-control" name="dokumen_pengadaan" id="dokumen_pengadaan" style="border: 1.5px solid #00AAC1;">
+                        <input type="file" class="form-control" name="dokumen_pengadaan" id="dokumen_pengadaan" style="border: 1.5px solid #00AAC1;" accept=".pdf,.jpg,.jpeg,.png">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="preview_dokumen">Preview</label>
