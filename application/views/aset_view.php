@@ -1,13 +1,15 @@
 <div class="row">
     <div class="col">
         <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">Informasi Data Aset</h2>
-                <div class="card-tools">
-                    <!-- <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Download Laporan</button> -->
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Tambah Aset</button>
+            <?php if ($this->session->userdata('role') === 'admin'): ?>
+                <div class="card-header">
+                    <h2 class="card-title">Informasi Data Aset</h2>
+                    <div class="card-tools">
+                        <!-- <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Download Laporan</button> -->
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Tambah Aset</button>
+                    </div>
                 </div>
-            </div>
+            <?php endif ?>
             <div class="card-body">
                 <table id="datatable-aset" class="table table-bordered table-striped">
                     <thead>
@@ -22,7 +24,9 @@
                             <th>Lokasi</th>
                             <th>Ruangan</th>
                             <th>Tahun</th>
-                            <th>Aksi</th>
+                            <?php if ($this->session->userdata('role') === 'admin'): ?>
+                                <th>Aksi</th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -43,6 +47,70 @@
         get_ruangan: '<?= site_url('option/get_ruangan') ?>'
     };
 
+    const columns = [{
+            data: 'no'
+        },
+        {
+            data: 'kode_aset'
+        },
+        {
+            data: 'nama_aset'
+        },
+        {
+            data: 'kategori'
+        },
+        {
+            data: 'merk'
+        },
+        {
+            data: 'tipe'
+        },
+        {
+            data: 'jumlah'
+        },
+        {
+            data: 'lokasi_fisik'
+        },
+        {
+            data: 'ruangan_nama'
+        }, // hasil join ruangan
+        {
+            data: 'tahun_perolehan'
+        }
+    ];
+
+    if (isAdmin) {
+        columns.push({
+            data: 'id',
+            orderable: false,
+            searchable: false,
+            className: 'text-end',
+            render: function(data, type, row) {
+                const deleteUrl = '<?= base_url('aset/delete/') ?>' + data;
+                return `
+                    <button type="button" class="btn btn-sm btn-warning btn-edit"
+                        data-id="${data}" 
+                        data-nama_aset="${row.nama_aset}"
+                        data-kategori="${row.kategori}"
+                        data-merk="${row.merk}"
+                        data-tipe="${row.tipe}"
+                        data-spesifikasi="${row.spesifikasi}"
+                        data-jumlah="${row.jumlah}"
+                        data-satuan="${row.satuan}"
+                        data-lokasi_fisik="${row.lokasi_fisik}"
+                        data-ruangan_id="${row.ruangan_id}"
+                        data-tahun_perolehan="${row.tahun_perolehan}"
+                        data-sumber_dana="${row.sumber_dana}"
+                        data-harga_satuan="${row.harga_satuan}"
+                        data-toggle="modal" 
+                        data-target="#tambahAset"
+                    >Edit</button>
+                    <a href="#" class="btn btn-sm btn-danger btn-confirm-delete" data-url="${deleteUrl}">Hapus</a>
+                `;
+            }
+        });
+    }
+
     $(function() {
         $('#datatable-aset').DataTable({
             processing: true,
@@ -54,66 +122,7 @@
                     d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>';
                 }
             },
-            columns: [{
-                    data: 'no'
-                },
-                {
-                    data: 'kode_aset'
-                },
-                {
-                    data: 'nama_aset'
-                },
-                {
-                    data: 'kategori'
-                },
-                {
-                    data: 'merk'
-                },
-                {
-                    data: 'tipe'
-                },
-                {
-                    data: 'jumlah'
-                },
-                {
-                    data: 'lokasi_fisik'
-                },
-                {
-                    data: 'ruangan_nama'
-                }, // pastikan digabung di query (join)
-                {
-                    data: 'tahun_perolehan'
-                },
-                {
-                    data: 'id',
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-end',
-                    render: function(data, type, row) {
-                        var deleteUrl = '<?= base_url('aset/delete/') ?>' + data;
-                        return `
-                            <button type="button" class="btn btn-sm btn-warning btn-edit"
-                                data-id="${data}" 
-                                data-nama_aset="${row.nama_aset}"
-                                data-kategori="${row.kategori}"
-                                data-merk="${row.merk}"
-                                data-tipe="${row.tipe}"
-                                data-spesifikasi="${row.spesifikasi}"
-                                data-jumlah="${row.jumlah}"
-                                data-satuan="${row.satuan}"
-                                data-lokasi_fisik="${row.lokasi_fisik}"
-                                data-ruangan_id="${row.ruangan_id}"
-                                data-tahun_perolehan="${row.tahun_perolehan}"
-                                data-sumber_dana="${row.sumber_dana}"
-                                data-harga_satuan="${row.harga_satuan}"
-                                data-toggle="modal" 
-                                data-target="#tambahAset"
-                            >Edit</button>
-                            <a href="" class="btn btn-sm btn-danger btn-confirm-delete" data-url="${deleteUrl}">Hapus</a>
-                        `;
-                    }
-                }
-            ]
+            columns: columns
         });
     });
 
@@ -122,7 +131,6 @@
 
         fields.forEach(field => {
             $(`#${field}`).val($(this).attr('data-' + field));
-            console.log($(this).attr('data-' + field));
         });
 
         $('#mode').val('edit');

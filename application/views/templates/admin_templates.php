@@ -44,6 +44,9 @@
 
     <!-- Custom CSS and JS -->
     <script>
+        const isAdmin = <?= $this->session->userdata('role') === 'admin' ? 'true' : 'false' ?>;
+    </script>
+    <script>
         const OPTION_URL = {
             get_aset: '<?= site_url('option/get_aset') ?>',
             get_ruangan: '<?= site_url('option/get_ruangan') ?>'
@@ -409,7 +412,6 @@
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         // Swal alert
         $(document).on('click', '.btn-confirm-delete', function(e) {

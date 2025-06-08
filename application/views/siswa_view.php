@@ -1,12 +1,14 @@
 <div class="row">
     <div class="col">
         <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">Informasi Data Siswa</h2>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahSiswa" id="btnTambahSiswa">Tambah Siswa</button>
+            <?php if ($this->session->userdata('role') === 'admin'): ?>
+                <div class="card-header">
+                    <h2 class="card-title">Informasi Data Siswa</h2>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahSiswa" id="btnTambahSiswa">Tambah Siswa</button>
+                    </div>
                 </div>
-            </div>
+            <?php endif ?>
             <div class="card-body">
                 <table id="datatable-siswa" class="table table-bordered table-striped">
                     <thead>
@@ -17,7 +19,9 @@
                             <th>Kelas</th>
                             <th>Jenis Kelamin</th>
                             <th>Orang Tua</th>
-                            <th>Aksi</th>
+                            <?php if ($this->session->userdata('role') === 'admin'): ?>
+                                <th>Aksi</th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -33,6 +37,61 @@
 
 <!-- Data Table -->
 <script>
+    const columns = [{
+            data: 'no'
+        },
+        {
+            data: 'nis'
+        },
+        {
+            data: 'nama_siswa'
+        },
+        {
+            data: 'kelas'
+        },
+        {
+            data: 'jenis_kelamin',
+            render: function(data, type, row) {
+                return data === 'L' ? 'Laki-laki' : 'Perempuan';
+            }
+        },
+        {
+            data: 'nama_ortu'
+        }
+    ];
+
+    if (isAdmin) {
+        columns.push({
+            data: 'id',
+            orderable: false,
+            searchable: false,
+            className: 'text-end',
+            render: function(data, type, row) {
+                const deleteUrl = '<?= base_url('siswa/delete/') ?>' + data;
+                return `
+                    <button type="button" class="btn btn-sm btn-warning btn-edit"
+                        data-id="${data}"
+                        data-nis="${row.nis}"
+                        data-nama_siswa="${row.nama_siswa}"
+                        data-kelas="${row.kelas}"
+                        data-tempat_lahir="${row.tempat_lahir}"
+                        data-tanggal_lahir="${row.tanggal_lahir}"
+                        data-jenis_kelamin="${row.jenis_kelamin}"
+                        data-alamat="${row.alamat}"
+                        data-nama_ortu="${row.nama_ortu}"
+                        data-no_hp_ortu="${row.no_hp_ortu}"
+                        data-status_aktif="${row.status_aktif}"
+                        data-toggle="modal"
+                        data-target="#tambahSiswa"
+                    >
+                        Edit
+                    </button>
+                    <a href="#" class="btn btn-sm btn-danger btn-confirm-delete" data-url="${deleteUrl}">Hapus</a>
+                `;
+            }
+        });
+    }
+
     $(function() {
         $('#datatable-siswa').DataTable({
             processing: true,
@@ -41,66 +100,15 @@
                 url: '<?= base_url('siswa/get_siswa') ?>',
                 type: 'POST',
                 data: function(d) {
-                    d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>'; // ganti jika nama CSRF berbeda
+                    d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>';
                 }
             },
-            columns: [{
-                    data: 'no'
-                },
-                {
-                    data: 'nis'
-                },
-                {
-                    data: 'nama_siswa'
-                },
-                {
-                    data: 'kelas'
-                },
-                {
-                    data: 'jenis_kelamin',
-                    render: function(data, type, row) {
-                        return data === 'L' ? 'Laki-laki' : 'Perempuan';
-                    }
-                },
-                {
-                    data: 'nama_ortu'
-                },
-                {
-                    data: 'id',
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-end',
-                    render: function(data, type, row) {
-                        var deleteUrl = '<?= base_url('siswa/delete/') ?>' + data;
-                        return `
-                            <button type="button" class="btn btn-sm btn-warning btn-edit"
-                                data-id="${data}"
-                                data-nis="${row.nis}"
-                                data-nama_siswa="${row.nama_siswa}"
-                                data-kelas="${row.kelas}"
-                                data-tempat_lahir="${row.tempat_lahir}"
-                                data-tanggal_lahir="${row.tanggal_lahir}"
-                                data-jenis_kelamin="${row.jenis_kelamin}"
-                                data-alamat="${row.alamat}"
-                                data-nama_ortu="${row.nama_ortu}"
-                                data-no_hp_ortu="${row.no_hp_ortu}"
-                                data-status_aktif="${row.status_aktif}"
-                                data-toggle="modal"
-                                data-target="#tambahSiswa"
-                            >
-                                Edit
-                            </button>
-                            <a href="" class="btn btn-sm btn-danger btn-confirm-delete" data-url="${deleteUrl}">Hapus</a>
-                        `;
-                    }
-                }
-            ]
+            columns: columns
         });
     });
 
     $(document).on('click', '.btn-edit', function() {
-        const fields = ['id', 'nis', 'nama_siswa', 'kelas', 'tempat_lahir', 'tanggal_lahir','jenis_kelamin', 'alamat', 'nama_ortu', 'no_hp_ortu', 'status_aktif'];
-
+        const fields = ['id', 'nis', 'nama_siswa', 'kelas', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'nama_ortu', 'no_hp_ortu', 'status_aktif'];
         fields.forEach(field => {
             $(`#${field}`).val($(this).attr('data-' + field));
         });

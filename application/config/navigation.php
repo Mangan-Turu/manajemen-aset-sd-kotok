@@ -82,6 +82,6 @@ $config['navigation'] = [
         'icon' => 'fas fa-sign-out-alt',
         'url' => 'logout',
         'active' => [],
-        'role' => ['admin'],
+        'role' => ['admin', 'kepala_sekolah'],
     ]
 ];
