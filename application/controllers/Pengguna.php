@@ -39,7 +39,7 @@ class Pengguna extends MY_Controller
     public function get_pengguna()
     {
         $request = $_POST;
-        $columns = ['id', 'nama', 'username', 'email', 'role'];
+        $columns = ['id', 'nama_lengkap as nama', 'username', 'email', 'role'];
 
         $start          = $request['start'];
         $length         = $request['length'];
@@ -60,7 +60,7 @@ class Pengguna extends MY_Controller
             $row    = [];
             $row['no']          = $no++;
             $row['id']          = $u['id'];
-            $row['nama']        = htmlspecialchars($u['nama']);
+            $row['nama_lengkap']= htmlspecialchars($u['nama_lengkap']);
             $row['username']    = htmlspecialchars($u['username']);
             $row['email']       = htmlspecialchars($u['email']);
             $row['no_hp']       = htmlspecialchars($u['no_hp']) ?: '';
@@ -81,7 +81,7 @@ class Pengguna extends MY_Controller
         $mode = $this->input->post('mode', TRUE);
         $id   = $this->input->post('id', TRUE);
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('nama_lengkap', 'Nama', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
         $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,kepala_sekolah]');
@@ -102,7 +102,7 @@ class Pengguna extends MY_Controller
         }
 
         $data = [
-            'nama'       => $this->input->post('nama', TRUE),
+            'nama_lengkap'       => $this->input->post('nama', TRUE),
             'username'   => $this->input->post('username', TRUE),
             'email'      => $this->input->post('email', TRUE),
             'role'       => $this->input->post('role', TRUE),

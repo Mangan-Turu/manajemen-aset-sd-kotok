@@ -46,7 +46,7 @@ class Users_model extends CI_Model
     public function count_filtered($search)
     {
         if (!empty($search)) {
-            $this->db->like('nama', $search);
+            $this->db->like('nama_lengkap', $search);
             $this->db->or_like('username', $search);
             $this->db->or_like('email', $search);
             $this->db->or_like('role', $search);
@@ -58,7 +58,7 @@ class Users_model extends CI_Model
     public function get_dt_all($start, $length, $search, $order_column, $order_dir)
     {
         if (!empty($search)) {
-            $this->db->like('nama', $search);
+            $this->db->like('nama_lengkap', $search);
             $this->db->or_like('username', $search);
             $this->db->or_like('email', $search);
             $this->db->or_like('role', $search);

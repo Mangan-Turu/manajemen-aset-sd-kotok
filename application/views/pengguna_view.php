@@ -45,7 +45,7 @@
                     data: 'no'
                 },
                 {
-                    data: 'nama'
+                    data: 'nama_lengkap'
                 },
                 {
                     data: 'username'

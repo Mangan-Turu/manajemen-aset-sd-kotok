@@ -4,7 +4,7 @@
             <div class="card-header">
                 <h2 class="card-title">Informasi Data Aset</h2>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Download Laporan</button>
+                    <!-- <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Download Laporan</button> -->
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Tambah Aset</button>
                 </div>
             </div>

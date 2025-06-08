@@ -250,6 +250,7 @@
             <?php
             $current = $this->uri->segment(1);
             $navigation = $this->config->item('navigation');
+            $userRole = $this->session->userdata('role'); // Ambil role dari session
             ?>
 
             <div class="sidebar">
@@ -258,6 +259,11 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <?php foreach ($navigation as $item): ?>
                             <?php
+                            // Tampilkan hanya jika role pengguna termasuk dalam array 'role' item menu
+                            if (!in_array($userRole, $item['role'])) {
+                                continue;
+                            }
+
                             $isActive = in_array($current, $item['active']);
                             $hasChildren = isset($item['children']);
                             ?>
@@ -273,6 +279,12 @@
                                 <?php if ($hasChildren): ?>
                                     <ul class="nav nav-treeview">
                                         <?php foreach ($item['children'] as $child): ?>
+                                            <?php
+                                            // Jika child juga memiliki pengaturan role, kamu bisa menambahkan ini:
+                                            if (isset($child['role']) && !in_array($userRole, $child['role'])) {
+                                                continue;
+                                            }
+                                            ?>
                                             <li class="nav-item">
                                                 <a href="<?= base_url($child['url']) ?>" class="nav-link <?= in_array($current, $child['active']) ? 'active' : '' ?>">
                                                     <i class="far fa-circle nav-icon"></i>

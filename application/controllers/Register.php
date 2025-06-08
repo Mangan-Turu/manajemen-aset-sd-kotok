@@ -54,7 +54,7 @@ class Register extends CI_Controller
 				'no_hp'      	=> $this->input->post('no_hp', true),
 				'username'   	=> $this->input->post('username', true),
 				'password'   	=> password_hash($this->input->post('password'), PASSWORD_DEFAULT), // hash password
-				'role'       	=> 'user',
+				'role'       	=> 'admin',
 				'created_at' 	=> date('Y-m-d H:i:s')
 			];
 
