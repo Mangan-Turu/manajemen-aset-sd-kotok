@@ -81,10 +81,24 @@ class Ruangan extends MY_Controller
         $mode = $this->input->post('mode', TRUE);
         $id   = $this->input->post('id', TRUE);
     
-        if ($mode === 'edit') {
-            $this->form_validation->set_rules('kode_ruangan', 'Kode Ruangan', 'required|trim');
+        if ($mode !== 'edit') {
+            $this->db->select('kode_ruangan');
+            $this->db->like('kode_ruangan', 'R');
+            $this->db->order_by('kode_ruangan', 'DESC');
+            $this->db->limit(1);
+            $last = $this->db->get('m_ruangan')->row();
+    
+            if ($last) {
+                $num = (int) substr($last->kode_ruangan, 1); 
+                $newKode = 'R' . str_pad($num + 1, 3, '0', STR_PAD_LEFT); 
+            } else {
+                $newKode = 'R001';
+            }
+    
+            $_POST['kode_ruangan'] = $newKode;
         }
     
+        $this->form_validation->set_rules('kode_ruangan', 'Kode Ruangan', 'required|trim');
         $this->form_validation->set_rules('nama_ruangan', 'Nama Ruangan', 'trim');
         $this->form_validation->set_rules('jenis_ruangan', 'Jenis Ruangan', 'trim');
         $this->form_validation->set_rules('lantai', 'Lantai', 'trim');
@@ -99,9 +113,7 @@ class Ruangan extends MY_Controller
         }
     
         $data = [
-            'kode_ruangan'      => ($mode === 'edit') 
-                                    ? $this->input->post('kode_ruangan', TRUE) 
-                                    : $this->generate_kode_ruangan(),
+            'kode_ruangan'      => $this->input->post('kode_ruangan', TRUE),
             'nama_ruangan'      => $this->input->post('nama_ruangan', TRUE),
             'jenis_ruangan'     => $this->input->post('jenis_ruangan', TRUE),
             'lantai'            => $this->input->post('lantai', TRUE),
@@ -127,26 +139,7 @@ class Ruangan extends MY_Controller
     
         $this->session->set_flashdata($message[0], $message[1]);
         redirect('ruangan');
-    }
-    
-    private function generate_kode_ruangan()
-    {
-        $this->db->select('kode_ruangan');
-        $this->db->like('kode_ruangan', 'R', 'after');
-        $this->db->order_by('kode_ruangan', 'DESC');
-        $this->db->limit(1);
-        $query = $this->db->get('m_ruangan');
-    
-        if ($query->num_rows() > 0) {
-            $last_kode = $query->row()->kode_ruangan;
-            $number = (int) substr($last_kode, 1);
-            $new_number = $number + 1;
-        } else {
-            $new_number = 1;
-        }
-    
-        return 'R' . str_pad($new_number, 4, '0', STR_PAD_LEFT); 
-    }    
+    }  
 
     public function delete($id)
     {

@@ -12,6 +12,7 @@
                     <!-- hidden input -->
                     <input type="hidden" name="id" id="id" value="">
                     <input type="hidden" name="mode" id="mode" value="tambah">
+                    <input type="hidden" name="kode_ruangan" id="kode_ruangan">
                     <!-- end hidden input -->
 
                     <div class="form-group col-md-6">
