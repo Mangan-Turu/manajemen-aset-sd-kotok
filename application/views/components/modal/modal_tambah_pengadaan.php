@@ -49,7 +49,7 @@
                         <input type="number" min="0" class="form-control" name="total_harga" id="total_harga" required placeholder="Masukkan Total Harga" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="sumber_dana">Sumber Data</label>
+                        <label for="sumber_dana">Sumber Dana</label>
                         <input type="text" class="form-control" name="sumber_dana" id="sumber_dana" required placeholder="Masukkan Sumber Data" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
@@ -92,7 +92,7 @@
 </div>
 
 <script>
-    $('#suplier').on('change', function() {
+    $('#supplier').on('change', function() {
         const val = $(this).val();
         if (val === 'Lainnya') {
             $('#suplierInput ').show().prop('required', true);
