@@ -15,16 +15,19 @@
                     <!-- end hidden input -->
 
                     <div class="form-group col-md-6">
-                        <label for="kode_ruangan">Kode Ruangan</label>
-                        <input type="text" class="form-control" name="kode_ruangan" id="kode_ruangan" required placeholder="Masukkan Kode Ruangan" style="border: 1.5px solid #00AAC1;">
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="nama_ruangan">Nama Ruangan</label>
                         <input type="text" class="form-control" name="nama_ruangan" id="nama_ruangan" required placeholder="Masukkan Nama Ruangan" style="border: 1.5px solid #00AAC1;">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="jenis_ruangan">Jenis Ruangan</label>
-                        <input type="text" class="form-control" name="jenis_ruangan" id="jenis_ruangan" required placeholder="Masukkan Jenis Ruangan" style="border: 1.5px solid #00AAC1;">
+                        <select class="form-control" name="jenis_ruangan" id="jenis_ruangan" required style="width: 100%; border: 1.5px solid #00AAC1;">
+                            <option value="">-- Pilih Jenis Ruangan --</option>                            
+                            <option value="kelas">Kelas</option>
+                            <option value="kantor">Kantor</option>
+                            <option value="perpustakaan">Perpustakaan</option>
+                            <option value="gudang">Gudang</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="lantai">Lantai Ruangan</label>
