@@ -98,7 +98,7 @@ class Siswa extends MY_Controller
         if ($mode === 'edit') {
             $this->form_validation->set_rules('nis', 'NIS', 'required|trim');
         } else {
-            $this->form_validation->set_rules('niss', 'NIS', 'required|trim|is_unique[m_siswa.nis,id,' . $id . ']');
+            $this->form_validation->set_rules('nis', 'NIS', 'required|trim|is_unique[m_siswa.nis]');
         }
 
         if ($this->form_validation->run() === FALSE) {

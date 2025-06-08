@@ -81,3 +81,5 @@ VALUES
 (2, '2025-06-01', 'Kerusakan listrik', 'Alat tidak menyala, kemungkinan konslet.', 'belum diperbaiki', NULL, NULL, 1),
 (4, '2025-04-30', 'Kerusakan fisik', 'Layar monitor retak akibat benturan.', 'selesai', 750000, 'dokumen/kerusakan3.jpg', 2);
 
+INSERT INTO `users` (`id`, `username`, `password`, `nama_lengkap`, `email`, `no_hp`, `role`, `created_at`, `updated_at`) VALUES (1, 'budi', '$2y$10$fdqNMR0csNI.D.QL7FiWW.iTi3OTG.A0Au5H9.VBuzVasz.dtwdAm', 'Budi Setiawan', 'budi@mail.com', '083816014304', 'admin', '2025-06-08 04:03:47', '2025-06-08 11:18:38');
+INSERT INTO `users` (`id`, `username`, `password`, `nama_lengkap`, `email`, `no_hp`, `role`, `created_at`, `updated_at`) VALUES (2, 'kepsek', '$2y$10$Dsf6insKmwxUjq5q7FTKp.cGspGa.5OfbpPQYzGGbN67686xCiY.O', 'Kepala Sekolah', 'kepsek@mail.com', '083816014304', 'kepala_sekolah', '2025-06-08 04:24:29', '2025-06-08 11:30:02');
