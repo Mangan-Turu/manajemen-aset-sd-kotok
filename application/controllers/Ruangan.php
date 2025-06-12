@@ -62,6 +62,7 @@ class Ruangan extends MY_Controller
                 'jenis_ruangan' => htmlspecialchars($s['jenis_ruangan']),
                 'lantai' => htmlspecialchars($s['lantai']),
                 'kapasitas' => htmlspecialchars($s['kapasitas']),
+                'jumlah_ruangan' => $this->Ruangan_model->count_ruangan($s['jenis_ruangan']),
                 'id' => $s['id'],
                 'penanggung_jawab' => htmlspecialchars($s['penanggung_jawab']),
                 'keterangan' => htmlspecialchars($s['keterangan']),

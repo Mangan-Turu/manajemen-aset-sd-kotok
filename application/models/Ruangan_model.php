@@ -16,6 +16,13 @@ class Ruangan_model extends CI_Model
         return $this->db->count_all_results($this->table);
     }
 
+    public function count_ruangan($jenis_ruangan)
+    {
+        $this->db->where('deleted', 0);
+        $this->db->where('jenis_ruangan', $jenis_ruangan);
+        return $this->db->count_all_results($this->table);
+    }
+
     public function count_filtered($search = null)
     {
         $this->db->from($this->table);

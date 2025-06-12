@@ -19,6 +19,7 @@
                             <th>Jenis</th>
                             <th>Lantai</th>
                             <th>Kapasitas</th>
+                            <th>Jumlah Ruangan</th>
                             <th>Penanggung Jawab</th>
                             <th>Deskripsi</th>
                             <?php if ($this->session->userdata('role') === 'admin'): ?>
@@ -56,6 +57,12 @@
         },
         {
             data: 'kapasitas'
+        },
+        {
+            data: 'jumlah_ruangan',
+            render: function(data, type, row) {
+                return row.jumlah_ruangan ? row.jumlah_ruangan : '0';
+            }
         },
         {
             data: 'penanggung_jawab'
