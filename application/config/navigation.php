@@ -78,6 +78,13 @@ $config['navigation'] = [
         'role' => ['admin', 'kepala_sekolah'],
     ],
     [
+        'label' => 'Laporan',
+        'icon' => 'fas fa-file-alt', // Ikon laporan
+        'url' => 'laporan',
+        'active' => ['laporan'],
+        'role' => ['admin', 'kepala_sekolah'],
+    ],
+    [
         'label' => 'Logout',
         'icon' => 'fas fa-sign-out-alt',
         'url' => 'logout',

@@ -42,7 +42,22 @@
     <script src="<?= base_url('assets/templates/AdminLTE-3.2.0'); ?>/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
     <!-- Custom CSS and JS -->
+    <style>
+        #datatable-laporan td,
+        #datatable-laporan th {
+            white-space: nowrap;
+        }
+
+        #datatable-laporan tr th,
+        #datatable-laporan tr td {
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+        }
+    </style>
+
     <script>
         const isAdmin = <?= $this->session->userdata('role') === 'admin' ? 'true' : 'false' ?>;
     </script>
