@@ -50,7 +50,7 @@ $config['navigation'] = [
         'role' => ['admin', 'kepala_sekolah'],
     ],
     [
-        'label' => 'Mutasi',
+        'label' => 'Pemindahan',
         'icon' => 'fas fa-exchange-alt', // Ikon mutasi atau perpindahan
         'url' => 'mutasi',
         'active' => ['mutasi'],

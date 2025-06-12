@@ -2,9 +2,9 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">Informasi Data Mutasi Asset</h2>
+                <h2 class="card-title">Informasi Data Pemindahan Asset</h2>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahMutasi" id="btnTambahMutasi">Tambah Mutasi</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambahMutasi" id="btnTambahMutasi">Tambah Pemindahan</button>
                 </div>
             </div>
             <div class="card-body">

@@ -12,7 +12,7 @@ class Mutasi extends MY_Controller
 
     public function index()
     {
-        $data['title'] = 'Data Mutasi';
+        $data['title'] = 'Data Pemindahan';
 
         $data['contents'] = $this->load->view('mutasi_view', $data, true);
         $this->load->view('templates/admin_templates', $data);

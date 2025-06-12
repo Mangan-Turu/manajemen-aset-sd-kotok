@@ -3,7 +3,7 @@
         <form action="<?= site_url('mutasi/tambah_mutasi') ?>" method="post" enctype="multipart/form-data" id="formMutasi">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTambahLabel">Tambah Mutasi Asset</h5>
+                    <h5 class="modal-title" id="modalTambahLabel">Tambah Pemindahan Asset</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -100,7 +100,7 @@
         $('#formMutasi')[0].reset();
         $('#mode').val('tambah');
         $('#id_mutasi').val('');
-        $('#modalTambahLabel').text('Tambah Mutasi Asset');
+        $('#modalTambahLabel').text('Tambah Pemindahan Asset');
     }
 
     function fillFormMutasi(data) {
@@ -112,7 +112,7 @@
         $('#ke_ruangan').val(data.ke_ruangan_id);
         $('#alasan').val(data.alasan);
         $('#dokumen').val('');
-        $('#modalTambahLabel').text('Edit Mutasi Asset');
+        $('#modalTambahLabel').text('Edit Pemindahan Asset');
     }
 
     fetchAset();
