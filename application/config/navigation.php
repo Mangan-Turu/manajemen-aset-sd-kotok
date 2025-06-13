@@ -54,14 +54,14 @@ $config['navigation'] = [
         'icon' => 'fas fa-exchange-alt', // Ikon mutasi atau perpindahan
         'url' => 'mutasi',
         'active' => ['mutasi'],
-        'role' => ['admin'],
+        'role' => ['admin', 'kepala_sekolah'],
     ],
     [
         'label' => 'Pemeliharaan',
         'icon' => 'fas fa-tools', // Ikon alat untuk pemeliharaan
         'url' => 'pemeliharaan',
         'active' => ['pemeliharaan'],
-        'role' => ['admin'],
+        'role' => ['admin', 'kepala_sekolah'],
     ],
     [
         'label' => 'Kerusakan',
