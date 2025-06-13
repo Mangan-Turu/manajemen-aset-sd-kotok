@@ -5,7 +5,7 @@ $config['navigation'] = [
     [
         'label' => 'Dashboard',
         'icon' => 'fas fa-tachometer-alt',
-        'url' => '#',
+        'url' => 'dashboard',
         'active' => ['dashboard', 'index', 'index2'],
         'role' => ['admin', 'kepala_sekolah'], // Hanya untuk role admin
         // 'children' => [

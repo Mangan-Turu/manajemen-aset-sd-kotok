@@ -15,9 +15,7 @@
                     </div>
                 </div>
                 <div class="card-body" style="display: block;">
-                    Check the Header part you can find Language Changing Options with Icon.
-                    <br>
-                    Start creating your amazing application!
+                   <h1>Hallo, Selamat datang di manajemen aset SD Kotok</h1>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer" style="display: block;">
