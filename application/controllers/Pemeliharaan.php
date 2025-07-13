@@ -22,7 +22,7 @@ class Pemeliharaan extends MY_Controller
     {
         $request = $_POST;
 
-        $columns = ['id', 'nama_aset', 'tanggal_pemeliharaan', 'status', 'jumlah', 'satuan', 'jenis_pemeliharaan', 'deskripsi', 'biaya'];
+        $columns = ['id', 'nama_aset', 'pemilik', 'tanggal_pemeliharaan', 'status', 'jumlah', 'satuan', 'jenis_pemeliharaan', 'deskripsi', 'biaya'];
 
         $start = isset($request['start']) ? (int) $request['start'] : 0;
         $length = isset($request['length']) ? (int) $request['length'] : 10;
@@ -42,6 +42,7 @@ class Pemeliharaan extends MY_Controller
             $data[] = [
                 'no' => $no++,
                 'nama_aset' => htmlspecialchars($s['nama_aset']),
+                'pemilik' => !empty($s['pemilik']) ? htmlspecialchars($s['pemilik']) : '-',
                 'jumlah' => htmlspecialchars($s['jumlah']),
                 'satuan' => htmlspecialchars($s['satuan']),
                 'tanggal_pemeliharaan' => htmlspecialchars($s['tanggal_pemeliharaan']),

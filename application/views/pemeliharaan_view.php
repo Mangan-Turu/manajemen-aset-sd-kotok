@@ -21,6 +21,7 @@
                             <th>Deskripsi</th>
                             <th>Biaya</th>
                             <th>Status</th>
+                            <th>Pemilik</th>
                             <?php if ($this->session->userdata('role') === 'admin'): ?>
                                 <th>Aksi</th>
                             <?php endif ?>
@@ -75,7 +76,9 @@
                 }
             }
         },
-
+        {
+            data: 'pemilik'
+        },
     ];
 
     if (isAdmin) {

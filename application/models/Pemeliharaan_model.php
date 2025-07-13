@@ -39,6 +39,7 @@ class Pemeliharaan_model extends CI_Model
         $this->db->select([
             $this->table . '.*',
             $this->table_aset . '.nama_aset AS nama_aset',
+            $this->table_aset . '.pemilik',
             $this->table_aset . '.satuan',
         ]);
         
