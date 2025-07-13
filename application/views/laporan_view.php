@@ -5,8 +5,17 @@
                 <div class="card-header">
                     <h2 class="card-title">Informasi Data Aset</h2>
                     <div class="card-tools">
-                        <!-- <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#tambahAset" id="btnTambahAset">Download Laporan</button> -->
-                        <button type="button" class="btn btn-sm btn-success" id="export_excel">Export Excel</button>
+                        <div class="form-group col-md-12 d-flex align-items-center">
+                            <div class="mr-3" style="flex: 1;">
+                                <select class="form-control" name="status" id="status" required style="border: 1.5px solid #00AAC1;">
+                                    <option value="1">Aktif</option>
+                                    <option value="2">Rusak</option>
+                                    <option value="3">Hilang</option>
+                                    <option value="4">Diperbaiki</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-success" id="export_excel">Export Excel</button>
+                        </div>
                     </div>
                 </div>
             <?php endif ?>
@@ -23,6 +32,7 @@
                                 <th>Tipe</th>
                                 <th>Jumlah</th>
                                 <th>Satuan</th>
+                                <th>Status</th>
                                 <th>Lokasi</th>
                                 <th>Jenis Ruangan</th>
                                 <th>Tahun</th>
@@ -31,6 +41,7 @@
                                 <th>Mutasi</th>
                                 <th>Kerusakan</th>
                                 <th>Biaya Pemeliharaan</th>
+                                <th>Pemilik Aset</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -53,9 +64,14 @@
                 type: 'POST',
                 data: function(d) {
                     d.csrf_token_name = '<?= $this->security->get_csrf_hash() ?>';
+                    d.status = $('#status').val();
                 }
             },
             columns: columns
+        });
+
+        $('#status').on('change', function() {
+            table.ajax.reload();
         });
 
         // Pastikan tombol export bekerja hanya saat XLSX tersedia
@@ -115,6 +131,23 @@
             data: 'satuan'
         },
         {
+            data: 'status',
+            render: function(data, type, row) {
+                switch (parseInt(data)) {
+                    case 1:
+                        return 'Aktif';
+                    case 2:
+                        return 'Rusak';
+                    case 3:
+                        return 'Hilang';
+                    case 4:
+                        return 'Diperbaiki';
+                    default:
+                        return 'Status Tidak Diketahui';
+                }
+            }
+        },
+        {
             data: 'nama_ruangan'
         },
         {
@@ -153,6 +186,9 @@
                 return data ?? '-';
             }
         },
+        {
+            data: 'pemilik'
+        }
     ];
 </script>
 <!-- End Data Table -->

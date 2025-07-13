@@ -10,17 +10,28 @@ class Laporan_model extends CI_Model
         parent::__construct();
     }
 
-    public function count_all()
+    public function count_all($status = null)
     {
-        $this->db->where('deleted', 0);
-        return $this->db->count_all_results($this->table);
+        $this->db->from($this->table . ' a');
+        $this->db->where('a.deleted', 0);
+
+        if ($status !== null && $status !== '') {
+            $this->db->where('a.status', $status);
+        }
+
+        return $this->db->count_all_results();
     }
 
-    public function count_filtered($search = null)
+
+    public function count_filtered($search = null, $status = null)
     {
         $this->db->from($this->table . ' a');
         $this->db->join('m_ruangan r', 'a.ruangan_id = r.id', 'left');
         $this->db->where('a.deleted', 0);
+
+        if ($status !== null && $status !== '') {
+            $this->db->where('a.status', $status);
+        }
 
         if (!empty($search)) {
             $this->db->group_start();
@@ -36,7 +47,7 @@ class Laporan_model extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function get_dt_all($start, $length, $search = null, $order_column = 'a.id', $order_dir = 'asc')
+    public function get_dt_all($start, $length, $search = null, $order_column = 'a.id', $order_dir = 'asc', $status = null)
     {
         $this->db->select('
             a.id,
@@ -47,6 +58,7 @@ class Laporan_model extends CI_Model
             a.tipe,
             a.jumlah,
             a.satuan,
+            a.pemilik,
             a.harga_satuan,
             (a.jumlah * a.harga_satuan) AS total_nilai_aset,
             a.tahun_perolehan,
@@ -88,6 +100,10 @@ class Laporan_model extends CI_Model
         $this->db->from($this->table . ' a');
         $this->db->join('m_ruangan r', 'a.ruangan_id = r.id', 'left');
         $this->db->where('a.deleted', 0);
+
+        if ($status !== null && $status !== '') {
+            $this->db->where('a.status', $status);
+        }
 
         if (!empty($search)) {
             $this->db->group_start();

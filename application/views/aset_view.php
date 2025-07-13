@@ -24,6 +24,8 @@
                             <th>Lokasi</th>
                             <th>Ruangan</th>
                             <th>Tahun</th>
+                            <th>Status</th>
+                            <th>Pemilik</th>
                             <?php if ($this->session->userdata('role') === 'admin'): ?>
                                 <th>Aksi</th>
                             <?php endif ?>
@@ -76,7 +78,27 @@
         }, // hasil join ruangan
         {
             data: 'tahun_perolehan'
-        }
+        },
+        {
+            data: 'status',
+            render: function(data, type, row) {
+                switch (parseInt(data)) {
+                    case 1:
+                        return 'Aktif';
+                    case 2:
+                        return 'Rusak';
+                    case 3:
+                        return 'Hilang';
+                    case 4:
+                        return 'Diperbaiki';
+                    default:
+                        return 'Status Tidak Diketahui';
+                }
+            }
+        },
+        {
+            data: 'pemilik'
+        },
     ];
 
     if (isAdmin) {

@@ -52,6 +52,7 @@ class Laporan extends MY_Controller
             'tahun_perolehan',
             'sumber_dana',
             'status',
+            'pemilik',
             'keterangan',
             'nama_ruangan',
             'jenis_ruangan',
@@ -66,10 +67,11 @@ class Laporan extends MY_Controller
         $search = $request['search']['value'];
         $order_column = $columns[$request['order'][0]['column']];
         $order_dir = $request['order'][0]['dir'];
+        $status = isset($request['status']) ? $request['status'] : null;
 
-        $totalData = $this->Laporan_model->count_all();
-        $totalFiltered = $this->Laporan_model->count_filtered($search);
-        $laporan = $this->Laporan_model->get_dt_all($start, $length, $search, $order_column, $order_dir);
+        $totalData = $this->Laporan_model->count_all($status);
+        $totalFiltered = $this->Laporan_model->count_filtered($search, $status);
+        $laporan = $this->Laporan_model->get_dt_all($start, $length, $search, $order_column, $order_dir, $status);
 
         $data = [];
         $no = $start + 1;
@@ -84,6 +86,7 @@ class Laporan extends MY_Controller
                 'tipe' => $s['tipe'],
                 'jumlah' => $s['jumlah'],
                 'satuan' => $s['satuan'],
+                'pemilik' => $s['pemilik'] ?? '-',
                 'harga_satuan' => $s['harga_satuan'],
                 'total_nilai_aset' => number_format($s['total_nilai_aset'], 2, ',', '.'),
                 'tahun_perolehan' => $s['tahun_perolehan'],

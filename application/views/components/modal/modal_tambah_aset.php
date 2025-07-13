@@ -78,6 +78,22 @@
                         <label for="harga_satuan">Harga Satuan</label>
                         <input type="number" class="form-control" name="harga_satuan" id="harga_satuan" required placeholder="Masukkan Harga Satuan" style="border: 1.5px solid #00AAC1;">
                     </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="status">Status Aset</label>
+                        <select class="form-control" name="status" id="status" required style="border: 1.5px solid #00AAC1;">
+                            <option value="1">Aktif</option>
+                            <option value="2">Rusak</option>
+                            <option value="3">Hilang</option>
+                            <option value="4">Diperbaiki</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="pemilik">Pemilik</label>
+                        <input type="text" class="form-control" name="pemilik" id="pemilik" required placeholder="Masukkan Pemilik" style="border: 1.5px solid #00AAC1;">
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" id="btnSimpan">Simpan</button>

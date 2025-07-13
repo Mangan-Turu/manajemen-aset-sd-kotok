@@ -57,6 +57,7 @@ class Aset extends MY_Controller
             'r.nama',             // alias ruangan_nama
             'a.tahun_perolehan',
             'a.satuan',
+            'a.pemilik',
             'a.id'                // id untuk action (edit/delete)
         ];
 
@@ -89,7 +90,9 @@ class Aset extends MY_Controller
                 'harga_satuan' => htmlspecialchars($a['harga_satuan']),
                 'spesifikasi' => htmlspecialchars($a['spesifikasi'] ?? '-'),
                 'ruangan_id' => $a['ruangan_id'],
+                'status' => $a['status'],
                 'satuan' => htmlspecialchars($a['satuan'] ?? '-'),
+                'pemilik' => htmlspecialchars($a['pemilik'] ?? '-'),
 
             ];
         }
@@ -142,7 +145,9 @@ class Aset extends MY_Controller
             'ruangan_id'        => $this->input->post('ruangan_id', TRUE),
             'tahun_perolehan'   => $this->input->post('tahun_perolehan', TRUE),
             'sumber_dana'       => $this->input->post('sumber_dana', TRUE),
-            'harga_satuan'      => $this->input->post('harga_satuan', TRUE)
+            'harga_satuan'      => $this->input->post('harga_satuan', TRUE),
+            'status'            => $this->input->post('status', TRUE) ?: '1', // Default status
+            'pemilik'           => $this->input->post('pemilik', TRUE),
         ];
 
         if ($mode === 'edit' && !empty($id)) {
